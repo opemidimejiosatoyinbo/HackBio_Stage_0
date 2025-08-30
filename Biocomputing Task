@@ -1,0 +1,138 @@
+  197  #!/bin/bash
+  198  #--------------------
+  199  # Biocomputing Task
+  200  # By: Opemidimeji Osatoyinbo
+  201  # Date: 30/08/2025
+  202  # BASh Basic and Installing Bioinformatics Software on the Terminal
+  203  #--------------------
+  204  # 1. Print your name
+  205  echo "Opemidimeji"
+  206  #--------------------
+  207  # 2. Create a folder titled your name
+  208  mkdir Opemidimeji
+  209  #--------------------
+  210  # 3. Create another new directory titled 'biocomputing' and change to that directory with one line command
+  211  mkdir biocomputing
+  212  cd biocomputing
+  213  #--------------------
+  214  # 4. Downloading files
+  215  wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.fna
+  216  wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.gbk
+  217  #--------------------
+  218  # 5. Moving the  '.fna' file to the folder titled my name
+  219  mv wildtype.fna ../Opemidimeji/
+  220  #--------------------
+  221  # 6. Delete the duplicate '.gbk' file
+  222  rm wildtype.gbk.1
+  223  #--------------------
+  224  # 7. Confirm if the '.fna' file is mutant or wild type ('tatatata' vs 'tata')
+  225  # Mutant = contains repeat expansion 'tatatata'
+  226  # Wildtype = contains shorter 'tata' repeat
+  227  # change directory back to ../Opemidimeji/ as it contains the '.fna' file
+  228  cd ../Opemidimeji
+  229  check_mutation () { local wildype.fna=$1; if grep "tatatata" "$wildtype.fna"; then echo "Mutant sequence detected in $wildtype.fna"; grep "tatatata" "$wildtype.fna" > mutant_sequence.txt; echo "Mutant lines save to mutant_sequence.txt"; else echo "Wildtype sequence in $wildtype.fna"; fi; }
+  230  grep "tatatata" wildtype.fna
+  231  #--------------------
+  232  # 8. if mutant, print all matching lines into a new file
+  233  grep "tatatata" ../Opemidimeji/wildtype.fna > mutant_sequence.txt
+  234  #--------------------
+  235  # 9. Count number of lines (excluding header) in the '.gbk' file
+  236  # change directory to biocomputing containing the '.gbk' file
+  237  cd ../biocomputing
+  238  grep -v "^LOCUS" wildtype.gbk | wc -l
+  239  #--------------------
+  240  # 10. Print the sequence length of the '.gbk' file. (Use the 'LOCUS' tag in the firt line
+  241  grep "^LOCUS" wildtype.gbk | awk '{print $3, $4}'
+  242  #--------------------
+  243  # 11. Print the source organism of the '.gbk' file. (Use the SOURCE' tag in the first line)
+  244  grep "SOURCE" wildtype.gbk
+  245  #--------------------
+  246  # 12. List all the gene names of the '.gbk' file. Hint {'grep '/gene=''}
+  247  grep "/gene=" wildtype.gbk
+  248  # 13. Clear your terminal space and print all command used today
+  249  clear
+  250  history
+opemidimejiosatoyinbo@cloudshell:~$ #---------------------
+opemidimejiosatoyinbo@cloudshell:~$ # 14. List the files in the two folders
+opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ #I had to open the directory 'Opemidimeji' before listing
+opemidimejiosatoyinbo@cloudshell:~$ cd Opemidimeji
+opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ ls
+mutant_sequence.txt  wildtype.fna
+opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ #----------------------
+opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ # Moving to 'biocomputing' before listing too
+opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ cd ../biocomputing
+opemidimejiosatoyinbo@cloudshell:~/biocomputing$ ls
+wildtype.gbk
+
+
+opemidimejiosatoyinbo@cloudshell:~/biocomputing$ # Going back to the root folder to activate conda, then I open a new terminal to launch
+opemidimejiosatoyinbo@cloudshell:~/biocomputing$ cd ../
+opemidimejiosatoyinbo@cloudshell:~$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+opemidimejiosatoyinbo@cloudshell:~$ # Activating conda environment
+opemidimejiosatoyinbo@cloudshell:~$ bash Miniconda3-latest-Linux-x86_64.sh
+
+# In order to continue the installation process, I reviewed the license agreement (all od these were done in CloudShell before opening a new terminal to install Bioinformatics softwares).
+
+(base) opemidimejiosatoyinbo@cloudshell:~$ # Installing Bioinformatics Software on the Terminal
+(base) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(base) opemidimejiosatoyinbo@cloudshell:~$ # checking conda version
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda --version
+conda 25.7.0
+(base) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(base) opemidimejiosatoyinbo@cloudshell:~$ # 1. Activate your base conda environment
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda activate base
+(base) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(base) opemidimejiosatoyinbo@cloudshell:~$ # Configuring bioconda channels
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda config --add channels defaults
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda config --add channels bioconda
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda config --add channels conda-forge
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda config --set channel_priority strict
+(base) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(base) opemidimejiosatoyinbo@cloudshell:~$ # 2. Create a conda environment named 'funtools'
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda create -n funtools python=3.10 -y                                                                   
+(base) opemidimejiosatoyinbo@cloudshell:~$ #--------------------                                         
+(base) opemidimejiosatoyinbo@cloudshell:~$ # 3. Activate the 'funtools' environment
+(base) opemidimejiosatoyinbo@cloudshell:~$ conda activate funtools                                       
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------                                     
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 4. Install Figlet using conda or apt-get
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # Using conda:
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c conda-forge figlet                    
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # Package was not found using conda, so I will proceed to 
+use apt-get: 
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ sudo apt-get install -y figlet
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 5. Run 'figlet' <my name>
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ figlet "Opemidimeji"
+  ___                       _     _ _                 _ _ 
+ / _ \ _ __   ___ _ __ ___ (_) __| (_)_ __ ___   ___ (_|_)
+| | | | '_ \ / _ \ '_ ` _ \| |/ _` | | '_ ` _ \ / _ \| | |
+| |_| | |_) |  __/ | | | | | | (_| | | | | | | |  __/| | |
+ \___/| .__/ \___|_| |_| |_|_|\__,_|_|_| |_| |_|\___|/ |_|
+      |_|                                          |__/   
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 6. Install 'bwa' through the bioconda channel
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda bwa
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 7. Install blast through the bioconda channel
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda blast                                                                      
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------                                     
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 8. Install 'samtools' through the bioconda channel
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda samtools                                                                                                  
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 9. Install 'bedtools' through the bioconda channel
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda bedtools
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 10. Install 'spades.py' through the bioconda channel
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda spades
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 11. Install 'bcftools' through the bioconda channel
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda bcftools
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 12. Install 'fastp' through the bioconda channel
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda fastp                                                                             
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ #--------------------                                     
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ # 13. Install 'multiqc' through the bioconda channel      
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ conda install -y -c bioconda multiqc                      
+
+(funtools) opemidimejiosatoyinbo@cloudshell:~$ 
