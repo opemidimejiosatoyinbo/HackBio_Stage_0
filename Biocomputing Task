@@ -18,44 +18,45 @@
   214  # 4. Downloading files
   215  wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.fna
   216  wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.gbk
-  217  #--------------------
-  218  # 5. Moving the  '.fna' file to the folder titled my name
-  219  mv wildtype.fna ../Opemidimeji/
-  220  #--------------------
-  221  # 6. Delete the duplicate '.gbk' file
-  222  rm wildtype.gbk.1
-  223  #--------------------
-  224  # 7. Confirm if the '.fna' file is mutant or wild type ('tatatata' vs 'tata')
-  225  # Mutant = contains repeat expansion 'tatatata'
-  226  # Wildtype = contains shorter 'tata' repeat
-  227  # change directory back to ../Opemidimeji/ as it contains the '.fna' file
-  228  cd ../Opemidimeji
-  229  check_mutation () { local wildype.fna=$1; if grep "tatatata" "$wildtype.fna"; then echo "Mutant sequence detected in $wildtype.fna"; grep "tatatata" "$wildtype.fna" > mutant_sequence.txt; echo "Mutant lines save to mutant_sequence.txt"; else echo "Wildtype sequence in $wildtype.fna"; fi; }
-  230  grep "tatatata" wildtype.fna
-  231  #--------------------
-  232  # 8. if mutant, print all matching lines into a new file
-  233  grep "tatatata" ../Opemidimeji/wildtype.fna > mutant_sequence.txt
-  234  #--------------------
-  235  # 9. Count number of lines (excluding header) in the '.gbk' file
-  236  # change directory to biocomputing containing the '.gbk' file
-  237  cd ../biocomputing
-  238  grep -v "^LOCUS" wildtype.gbk | wc -l
-  239  #--------------------
-  240  # 10. Print the sequence length of the '.gbk' file. (Use the 'LOCUS' tag in the firt line
-  241  grep "^LOCUS" wildtype.gbk | awk '{print $3, $4}'
-  242  #--------------------
-  243  # 11. Print the source organism of the '.gbk' file. (Use the SOURCE' tag in the first line)
-  244  grep "SOURCE" wildtype.gbk
-  245  #--------------------
-  246  # 12. List all the gene names of the '.gbk' file. Hint {'grep '/gene=''}
-  247  grep "/gene=" wildtype.gbk
-  248  # 13. Clear your terminal space and print all command used today
-  249  clear
-  250  history
+  217  wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.gbk.1
+  218  #--------------------
+  219  # 5. Moving the  '.fna' file to the folder titled my name
+  220  mv wildtype.fna ../Opemidimeji/
+  221  #--------------------
+  222  # 6. Delete the duplicate '.gbk' file
+  223  rm wildtype.gbk.1
+  224  #--------------------
+  225  # 7. Confirm if the '.fna' file is mutant or wild type ('tatatata' vs 'tata')
+  226  # Mutant = contains repeat expansion 'tatatata'
+  227  # Wildtype = contains shorter 'tata' repeat
+  228  # change directory back to ../Opemidimeji/ as it contains the '.fna' file
+  229  cd ../Opemidimeji
+  230  check_mutation () { local wildype.fna=$1; if grep "tatatata" "$wildtype.fna"; then echo "Mutant sequence detected in $wildtype.fna"; grep "tatatata" "$wildtype.fna" > mutant_sequence.txt; echo "Mutant lines save to mutant_sequence.txt"; else echo "Wildtype sequence in $wildtype.fna"; fi; }
+  231  grep "tatatata" wildtype.fna
+  232  #--------------------
+  233  # 8. if mutant, print all matching lines into a new file
+  234  grep "tatatata" ../Opemidimeji/wildtype.fna > mutant_sequence.txt
+  235  #--------------------
+  236  # 9. Count number of lines (excluding header) in the '.gbk' file
+  237  # change directory to biocomputing containing the '.gbk' file
+  238  cd ../biocomputing
+  239  grep -v "^LOCUS" wildtype.gbk | wc -l
+  240  #--------------------
+  241  # 10. Print the sequence length of the '.gbk' file. (Use the 'LOCUS' tag in the firt line
+  242  grep "^LOCUS" wildtype.gbk | awk '{print $3, $4}'
+  243  #--------------------
+  244  # 11. Print the source organism of the '.gbk' file. (Use the SOURCE' tag in the first line)
+  245  grep "SOURCE" wildtype.gbk
+  246  #--------------------
+  247  # 12. List all the gene names of the '.gbk' file. Hint {'grep '/gene=''}
+  248  grep "/gene=" wildtype.gbk
+  249  # 13. Clear your terminal space and print all command used today
+  250  clear
+  251  history
 opemidimejiosatoyinbo@cloudshell:~$ #---------------------
 opemidimejiosatoyinbo@cloudshell:~$ # 14. List the files in the two folders
 opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ #I had to open the directory 'Opemidimeji' before listing
-opemidimejiosatoyinbo@cloudshell:~$ cd Opemidimeji
+opemidimejiosatoyinbo@cloudshell:~$ cd ../Opemidimeji
 opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ ls
 mutant_sequence.txt  wildtype.fna
 opemidimejiosatoyinbo@cloudshell:~/Opemidimeji$ #----------------------
